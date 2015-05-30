@@ -9,6 +9,14 @@ app.use(bodyParser.json());
 
 app.use('/', rekuire('squashberry'));
 
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: err
+    });
+});
+
 var server = app.listen(3000, function () {
 
     var host = server.address().address;
